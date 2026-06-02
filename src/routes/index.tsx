@@ -1,29 +1,45 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "@/components/site/Navbar";
+import { Hero } from "@/components/site/Hero";
+import { AuthorityBar } from "@/components/site/AuthorityBar";
+import { SpecialtiesTabs } from "@/components/site/SpecialtiesTabs";
+import { About } from "@/components/site/About";
+import { BlogPreview } from "@/components/site/BlogPreview";
+import { ConversionFAQ } from "@/components/site/ConversionFAQ";
+import { Footer } from "@/components/site/Footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Ryani Antonio — Nutrição Clínica, Esportiva e Pediátrica" },
+      {
+        name: "description",
+        content:
+          "Nutricionista CRN-9 29813. Atendimento clínico, esportivo e pediátrico com rigor científico e cuidado humanizado em Vitória/ES e online.",
+      },
+      { property: "og:title", content: "Ryani Antonio — Nutrição Clínica, Esportiva e Pediátrica" },
+      {
+        property: "og:description",
+        content: "Do ambiente hospitalar ao consultório: ciência de ponta para sua saúde, performance e a nutrição do seu filho.",
+      },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <main>
+        <Hero />
+        <AuthorityBar />
+        <SpecialtiesTabs />
+        <About />
+        <BlogPreview />
+        <ConversionFAQ />
+      </main>
+      <Footer />
     </div>
   );
 }
