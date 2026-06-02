@@ -3,10 +3,10 @@ import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
 import { ArrowLeft } from "lucide-react";
-import { getPost, posts } from "@/content/posts";
+import { getPost, posts, type Post } from "@/content/posts";
 
 export const Route = createFileRoute("/blog/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): { post: Post } => {
     const post = getPost(params.slug);
     if (!post) throw notFound();
     return { post };
