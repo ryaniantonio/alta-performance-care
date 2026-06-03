@@ -23,10 +23,10 @@ export function Hero() {
             <span className="italic text-primary">e performance</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg whitespace-pre-line">
             Ciência de ponta e cuidado humanizado para guiar a sua saúde, a sua
             evolução estética ou a nutrição do seu filho — com o rigor técnico
-            de quem viveu a urgência hospitalar pediátrica.
+            baseado em evidências{"\n"}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
