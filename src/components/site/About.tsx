@@ -37,11 +37,11 @@ export function About() {
               intensidade que carrego para o consultório.
             </p>
             <p>
-              Hoje, ela serve tanto à mãe que busca segurança absoluta na
+              Hoje, ela serve tanto à mãe que busca segurança na
               introdução alimentar do filho quanto ao adulto que persegue
               hipertrofia, performance ou recuperação de uma condição clínica.
               Cada plano é construído a partir de exames, antropometria
-              avançada e histórico — nunca de protocolos genéricos.
+              avançada e histórico individualizado — Não utilizo protocolos genéricos.
             </p>
             <p>
               Acredito que a melhor nutrição é a que une evidência científica e
