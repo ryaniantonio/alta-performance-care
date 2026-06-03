@@ -35,7 +35,7 @@ const adulto: Card[] = [
     icon: HeartPulse,
     title: "Nutrição Clínica Geral",
     description:
-      "Prevenção e tratamento de doenças metabólicas, saúde intestinal e análise rigorosa de exames laboratoriais.",
+      "Prevenção e tratamento de doenças metabólicas, saúde intestinal, terapia nutricional enteral e análise rigorosa de exames laboratoriais.",
   },
 ];
 
