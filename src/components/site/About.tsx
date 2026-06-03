@@ -44,8 +44,8 @@ export function About() {
               avançada e histórico individualizado — Não utilizo protocolos genéricos.
             </p>
             <p>
-              Acredito que a melhor nutrição é a que une evidência científica e
-              escuta humana. Esse é o cuidado que ofereço.
+              Acredito que a melhor nutrição é a que une evidência científica,
+              escuta humanizada e acolhimento. Esse é o cuidado que ofereço.
             </p>
           </div>
 
