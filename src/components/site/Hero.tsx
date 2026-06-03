@@ -105,7 +105,7 @@ export function Hero() {
                 Nutrição Pediátrica Especializada
               </h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Introdução alimentar segura, seletividade, alergias e suporte pós-alta hospitalar.
+                Introdução alimentar segura, seletividade alimentar, alergias, dietoterapia enteral especializada e suporte pós-alta hospitalar.
               </p>
             </div>
           </div>
