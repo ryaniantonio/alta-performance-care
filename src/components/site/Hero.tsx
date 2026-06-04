@@ -24,9 +24,9 @@ export function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg whitespace-pre-line">
-            Ciência de ponta e cuidado humanizado para guiar a sua saúde, a sua
-            evolução estética ou a nutrição do seu filho — com o rigor técnico
-            baseado em evidências{"\n"}
+            Ciência de ponta, cuidado e acolhimento humanizado para guiar a sua
+            saúde, a sua evolução estética ou a nutrição do seu filho — com o
+            rigor técnico baseado em evidências{"\n"}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
