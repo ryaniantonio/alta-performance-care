@@ -7,10 +7,59 @@ import {
 import { WhatsAppButton } from "./WhatsAppButton";
 import { useReveal } from "@/hooks/use-reveal";
 
-const faqs = [
+type Modality = {
+  name: string;
+  duration: string;
+  description: string;
+};
+
+type Faq = {
+  q: string;
+  a?: string;
+  intro?: string;
+  modalities?: Modality[];
+  footnote?: string;
+};
+
+const faqs: Faq[] = [
   {
     q: "Como funciona a primeira consulta?",
-    a: "A primeira consulta ocorre de acordo com o seu objetivo principal. Atendemos orientação nutricional com duração de uma hora; consulta clínica completa com duração de duas horas com anamnese clínica, revisão de exames recentes, avaliação antropométrica (dobras, perímetros e bioimpedância quando indicado); Personal Diet com duração de 4 horas; Avaliação da dietoterapia enteral com duração de 4 horas; Home Care com duração de 4 horas.",
+    intro:
+      "Cada formato é desenhado conforme o seu objetivo principal — do cuidado pontual à dietoterapia de alta complexidade.",
+    modalities: [
+      {
+        name: "Orientação Nutricional",
+        duration: "1 hora",
+        description:
+          "Direcionamento prático para quem busca ajustes pontuais e clareza sobre o próximo passo.",
+      },
+      {
+        name: "Consulta Clínica Completa",
+        duration: "2 horas",
+        description:
+          "Anamnese aprofundada, revisão de exames recentes e avaliação antropométrica (dobras, perímetros e bioimpedância quando indicado).",
+      },
+      {
+        name: "Personal Diet",
+        duration: "4 horas",
+        description:
+          "Atendimento imersivo com planejamento alimentar individualizado e acompanhamento prático no seu ambiente.",
+      },
+      {
+        name: "Dietoterapia Enteral",
+        duration: "4 horas",
+        description:
+          "Avaliação especializada para pacientes em terapia nutricional enteral, com ajuste fino de fórmula e via de administração.",
+      },
+      {
+        name: "Home Care",
+        duration: "4 horas",
+        description:
+          "Suporte nutricional domiciliar para casos complexos, integrando família, equipe e plano terapêutico.",
+      },
+    ],
+    footnote:
+      "Não trabalho com protocolos genéricos: cada plano é construído a partir de exames, antropometria e histórico individual.",
   },
   {
     q: "Atendimento online ou presencial: qual escolher?",
@@ -82,7 +131,40 @@ export function ConversionFAQ() {
                   {item.q}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm leading-relaxed text-primary-foreground/75">
-                  {item.a}
+                  {item.modalities ? (
+                    <div className="space-y-5">
+                      {item.intro && (
+                        <p className="text-primary-foreground/80">{item.intro}</p>
+                      )}
+                      <ul className="space-y-3">
+                        {item.modalities.map((m) => (
+                          <li
+                            key={m.name}
+                            className="group rounded-xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-4 transition hover:border-accent/50 hover:bg-primary-foreground/[0.07]"
+                          >
+                            <div className="flex items-baseline justify-between gap-3">
+                              <h4 className="font-display text-base text-primary-foreground">
+                                {m.name}
+                              </h4>
+                              <span className="shrink-0 rounded-full border border-accent/40 px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-accent">
+                                {m.duration}
+                              </span>
+                            </div>
+                            <p className="mt-2 text-sm leading-relaxed text-primary-foreground/70">
+                              {m.description}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                      {item.footnote && (
+                        <p className="border-l-2 border-accent/60 pl-4 text-sm italic text-primary-foreground/70">
+                          {item.footnote}
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    item.a
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}
