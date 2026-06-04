@@ -10,7 +10,7 @@ import { useReveal } from "@/hooks/use-reveal";
 const faqs = [
   {
     q: "Como funciona a primeira consulta?",
-    a: "A primeira consulta dura entre 60 e 90 minutos. Fazemos anamnese clínica completa, revisão de exames recentes, avaliação antropométrica (dobras, perímetros e bioimpedância quando indicado) e definimos juntos as metas e estratégia inicial.",
+    a: "A primeira consulta ocorre de acordo com o seu objetivo principal. Atendemos orientação nutricional com duração de uma hora; consulta clínica completa com duração de duas horas com anamnese clínica, revisão de exames recentes, avaliação antropométrica (dobras, perímetros e bioimpedância quando indicado); Personal Diet com duração de 4 horas; Avaliação da dietoterapia enteral com duração de 4 horas; Home Care com duração de 4 horas.",
   },
   {
     q: "Atendimento online ou presencial: qual escolher?",
