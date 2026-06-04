@@ -10,6 +10,7 @@ const links = [
   { label: "Início", to: "/", hash: "" },
   { label: "Especialidades", to: "/", hash: "especialidades" },
   { label: "Sobre", to: "/", hash: "sobre" },
+  { label: "Depoimentos", to: "/", hash: "depoimentos" },
   { label: "Blog", to: "/blog", hash: "" },
 ];
 
