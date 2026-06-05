@@ -20,6 +20,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminPacientesRouteImport } from './routes/_authenticated/admin.pacientes'
 import { Route as AuthenticatedAdminModelosRouteImport } from './routes/_authenticated/admin.modelos'
 import { Route as AuthenticatedAdminConfiguracoesRouteImport } from './routes/_authenticated/admin.configuracoes'
+import { Route as AuthenticatedAdminPacientesPatientIdRouteImport } from './routes/_authenticated/admin.pacientes.$patientId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -78,6 +79,12 @@ const AuthenticatedAdminConfiguracoesRoute =
     path: '/configuracoes',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminPacientesPatientIdRoute =
+  AuthenticatedAdminPacientesPatientIdRouteImport.update({
+    id: '/$patientId',
+    path: '/$patientId',
+    getParentRoute: () => AuthenticatedAdminPacientesRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -88,8 +95,9 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/admin/modelos': typeof AuthenticatedAdminModelosRoute
-  '/admin/pacientes': typeof AuthenticatedAdminPacientesRoute
+  '/admin/pacientes': typeof AuthenticatedAdminPacientesRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/pacientes/$patientId': typeof AuthenticatedAdminPacientesPatientIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -99,8 +107,9 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/admin/modelos': typeof AuthenticatedAdminModelosRoute
-  '/admin/pacientes': typeof AuthenticatedAdminPacientesRoute
+  '/admin/pacientes': typeof AuthenticatedAdminPacientesRouteWithChildren
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/pacientes/$patientId': typeof AuthenticatedAdminPacientesPatientIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -113,8 +122,9 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/_authenticated/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/_authenticated/admin/modelos': typeof AuthenticatedAdminModelosRoute
-  '/_authenticated/admin/pacientes': typeof AuthenticatedAdminPacientesRoute
+  '/_authenticated/admin/pacientes': typeof AuthenticatedAdminPacientesRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/pacientes/$patientId': typeof AuthenticatedAdminPacientesPatientIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/admin/modelos'
     | '/admin/pacientes'
     | '/admin/'
+    | '/admin/pacientes/$patientId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -140,6 +151,7 @@ export interface FileRouteTypes {
     | '/admin/modelos'
     | '/admin/pacientes'
     | '/admin'
+    | '/admin/pacientes/$patientId'
   id:
     | '__root__'
     | '/'
@@ -153,6 +165,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/modelos'
     | '/_authenticated/admin/pacientes'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/pacientes/$patientId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -243,20 +256,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminConfiguracoesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/pacientes/$patientId': {
+      id: '/_authenticated/admin/pacientes/$patientId'
+      path: '/$patientId'
+      fullPath: '/admin/pacientes/$patientId'
+      preLoaderRoute: typeof AuthenticatedAdminPacientesPatientIdRouteImport
+      parentRoute: typeof AuthenticatedAdminPacientesRoute
+    }
   }
 }
+
+interface AuthenticatedAdminPacientesRouteChildren {
+  AuthenticatedAdminPacientesPatientIdRoute: typeof AuthenticatedAdminPacientesPatientIdRoute
+}
+
+const AuthenticatedAdminPacientesRouteChildren: AuthenticatedAdminPacientesRouteChildren =
+  {
+    AuthenticatedAdminPacientesPatientIdRoute:
+      AuthenticatedAdminPacientesPatientIdRoute,
+  }
+
+const AuthenticatedAdminPacientesRouteWithChildren =
+  AuthenticatedAdminPacientesRoute._addFileChildren(
+    AuthenticatedAdminPacientesRouteChildren,
+  )
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminConfiguracoesRoute: typeof AuthenticatedAdminConfiguracoesRoute
   AuthenticatedAdminModelosRoute: typeof AuthenticatedAdminModelosRoute
-  AuthenticatedAdminPacientesRoute: typeof AuthenticatedAdminPacientesRoute
+  AuthenticatedAdminPacientesRoute: typeof AuthenticatedAdminPacientesRouteWithChildren
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminConfiguracoesRoute: AuthenticatedAdminConfiguracoesRoute,
   AuthenticatedAdminModelosRoute: AuthenticatedAdminModelosRoute,
-  AuthenticatedAdminPacientesRoute: AuthenticatedAdminPacientesRoute,
+  AuthenticatedAdminPacientesRoute:
+    AuthenticatedAdminPacientesRouteWithChildren,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 
@@ -285,3 +321,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
