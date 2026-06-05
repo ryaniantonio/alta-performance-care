@@ -64,8 +64,8 @@ type FoodEntry = {
 type MealMap = Record<MealKey, FoodEntry[]>;
 
 const emptyMeals = (): MealMap => Object.fromEntries(
-  MEALS.map((m) => [m.key, []]),
-) as MealMap;
+  MEALS.map((m) => [m.key, [] as FoodEntry[]]),
+) as unknown as MealMap;
 
 // ---------- main ----------
 function ConsultationPage() {
