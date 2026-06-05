@@ -17,12 +17,12 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyProfile } from "@/lib/profile.functions";
 
-const NAV = [
+const NAV: { to: string; label: string; icon: typeof CalendarDays; exact?: boolean }[] = [
   { to: "/admin", label: "Agenda", icon: CalendarDays, exact: true },
   { to: "/admin/pacientes", label: "Pacientes", icon: Users },
   { to: "/admin/modelos", label: "Modelos", icon: FileText },
   { to: "/admin/configuracoes", label: "Perfil", icon: Settings },
-] as const;
+];
 
 export function AdminShell() {
   const [collapsed, setCollapsed] = useState(false);
@@ -146,7 +146,7 @@ function SidebarBody({
           return (
             <Link
               key={item.to}
-              to={item.to}
+              to={item.to as any}
               onClick={onNavigate}
               className={cn(
                 "flex items-center gap-3 px-3 h-9 rounded-md text-sm transition-colors",
