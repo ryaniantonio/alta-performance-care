@@ -1,20 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Search, Plus } from "lucide-react";
 import { PageHeader } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PATIENTS } from "@/lib/clinical/patients";
 
 export const Route = createFileRoute("/_authenticated/admin/pacientes")({
   component: PacientesPage,
 });
-
-const PATIENTS = [
-  { name: "Mariana Costa", email: "mariana@email.com", phone: "(27) 99999-0001", last: "12/05/2026", tag: "Clínica" },
-  { name: "Rafael Andrade", email: "rafa@email.com", phone: "(27) 99999-0002", last: "10/05/2026", tag: "Enteral" },
-  { name: "Luciana Ferreira", email: "lu@email.com", phone: "(27) 99999-0003", last: "08/05/2026", tag: "Pediatria" },
-  { name: "Eduardo Martins", email: "edu@email.com", phone: "(27) 99999-0004", last: "05/05/2026", tag: "Personal" },
-  { name: "Beatriz Almeida", email: "bia@email.com", phone: "(27) 99999-0005", last: "01/05/2026", tag: "Esportiva" },
-];
 
 function PacientesPage() {
   return (
@@ -45,7 +39,7 @@ function PacientesPage() {
           </thead>
           <tbody className="divide-y">
             {PATIENTS.map((p) => (
-              <tr key={p.email} className="hover:bg-muted/30 transition-colors">
+              <tr key={p.id} className="hover:bg-muted/30 transition-colors">
                 <td className="px-5 py-3">
                   <div className="flex items-center gap-3">
                     <div className="h-9 w-9 rounded-full bg-muted grid place-items-center text-xs font-medium">
@@ -61,12 +55,14 @@ function PacientesPage() {
                   <p>{p.email}</p>
                   <p className="text-xs text-muted-foreground">{p.phone}</p>
                 </td>
-                <td className="px-5 py-3 hidden lg:table-cell text-muted-foreground">{p.last}</td>
+                <td className="px-5 py-3 hidden lg:table-cell text-muted-foreground">{p.lastVisit}</td>
                 <td className="px-5 py-3">
                   <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-muted">{p.tag}</span>
                 </td>
                 <td className="px-5 py-3 text-right">
-                  <Button variant="ghost" size="sm">Abrir</Button>
+                  <Button asChild variant="ghost" size="sm">
+                    <Link to="/admin/pacientes/$patientId" params={{ patientId: p.id }}>Abrir</Link>
+                  </Button>
                 </td>
               </tr>
             ))}
