@@ -749,29 +749,3 @@ function KcalRing({ value, target }: { value: number; target: number }) {
   const pct = Math.min(100, (value / target) * 100);
   return <Progress value={pct} className="mt-3 h-2" />;
 }
-
-// ---------- seed ----------
-function seedRecall(): MealMap {
-  return {
-    cafe_manha: [
-      { uid: crypto.randomUUID(), foodId: "pao-frances", amount: 1, unit: "unidade" },
-      { uid: crypto.randomUUID(), foodId: "cafe-coado", amount: 1, unit: "xícara" },
-      { uid: crypto.randomUUID(), foodId: "banana", amount: 1, unit: "unidade" },
-    ],
-    lanche_manha: [],
-    almoco: [
-      { uid: crypto.randomUUID(), foodId: "arroz-branco", amount: 4, unit: "colher de sopa" },
-      { uid: crypto.randomUUID(), foodId: "feijao-carioca", amount: 2, unit: "colher de sopa" },
-      { uid: crypto.randomUUID(), foodId: "frango-peito", amount: 1, unit: "unidade" },
-      { uid: crypto.randomUUID(), foodId: "salada-folhas", amount: 1, unit: "xícara" },
-    ],
-    lanche_tarde: [
-      { uid: crypto.randomUUID(), foodId: "iogurte-natural", amount: 1, unit: "unidade" },
-    ],
-    jantar: [
-      { uid: crypto.randomUUID(), foodId: "batata-doce", amount: 1, unit: "unidade" },
-      { uid: crypto.randomUUID(), foodId: "ovo", amount: 2, unit: "unidade" },
-    ],
-    ceia: [],
-  };
-}
