@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu } from "lucide-react";
+import { Menu, LogIn } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { SITE } from "@/lib/site";
 import { WhatsAppButton } from "./WhatsAppButton";
@@ -55,6 +55,13 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
+          <Link
+            to="/auth"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground/75 transition-colors hover:text-accent"
+          >
+            <LogIn className="size-4" />
+            Entrar
+          </Link>
           <WhatsAppButton message="Olá Ryani! Gostaria de agendar uma consulta.">
             Agendar Consulta
           </WhatsAppButton>
@@ -87,6 +94,14 @@ export function Navbar() {
                   {l.label}
                 </Link>
               ))}
+              <Link
+                to="/auth"
+                onClick={() => setOpen(false)}
+                className="mt-2 inline-flex items-center gap-2 rounded-lg border border-border px-3 py-3 text-base font-medium text-foreground/85 transition-colors hover:bg-muted hover:text-accent"
+              >
+                <LogIn className="size-4" />
+                Entrar / Cadastrar
+              </Link>
             </nav>
             <div className="mt-8" onClick={() => setOpen(false)}>
               <WhatsAppButton

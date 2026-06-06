@@ -20,6 +20,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminPacientesRouteImport } from './routes/_authenticated/admin.pacientes'
 import { Route as AuthenticatedAdminModelosRouteImport } from './routes/_authenticated/admin.modelos'
 import { Route as AuthenticatedAdminConfiguracoesRouteImport } from './routes/_authenticated/admin.configuracoes'
+import { Route as AuthenticatedAdminPacientesIndexRouteImport } from './routes/_authenticated/admin.pacientes.index'
 import { Route as AuthenticatedAdminPacientesPatientIdRouteImport } from './routes/_authenticated/admin.pacientes.$patientId'
 
 const LoginRoute = LoginRouteImport.update({
@@ -79,6 +80,12 @@ const AuthenticatedAdminConfiguracoesRoute =
     path: '/configuracoes',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminPacientesIndexRoute =
+  AuthenticatedAdminPacientesIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminPacientesRoute,
+  } as any)
 const AuthenticatedAdminPacientesPatientIdRoute =
   AuthenticatedAdminPacientesPatientIdRouteImport.update({
     id: '/$patientId',
@@ -98,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/admin/pacientes': typeof AuthenticatedAdminPacientesRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/pacientes/$patientId': typeof AuthenticatedAdminPacientesPatientIdRoute
+  '/admin/pacientes/': typeof AuthenticatedAdminPacientesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -107,9 +115,9 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/admin/modelos': typeof AuthenticatedAdminModelosRoute
-  '/admin/pacientes': typeof AuthenticatedAdminPacientesRouteWithChildren
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/pacientes/$patientId': typeof AuthenticatedAdminPacientesPatientIdRoute
+  '/admin/pacientes': typeof AuthenticatedAdminPacientesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/pacientes': typeof AuthenticatedAdminPacientesRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/pacientes/$patientId': typeof AuthenticatedAdminPacientesPatientIdRoute
+  '/_authenticated/admin/pacientes/': typeof AuthenticatedAdminPacientesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -140,6 +149,7 @@ export interface FileRouteTypes {
     | '/admin/pacientes'
     | '/admin/'
     | '/admin/pacientes/$patientId'
+    | '/admin/pacientes/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -149,9 +159,9 @@ export interface FileRouteTypes {
     | '/blog'
     | '/admin/configuracoes'
     | '/admin/modelos'
-    | '/admin/pacientes'
     | '/admin'
     | '/admin/pacientes/$patientId'
+    | '/admin/pacientes'
   id:
     | '__root__'
     | '/'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/pacientes'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/pacientes/$patientId'
+    | '/_authenticated/admin/pacientes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -256,6 +267,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminConfiguracoesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/pacientes/': {
+      id: '/_authenticated/admin/pacientes/'
+      path: '/'
+      fullPath: '/admin/pacientes/'
+      preLoaderRoute: typeof AuthenticatedAdminPacientesIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminPacientesRoute
+    }
     '/_authenticated/admin/pacientes/$patientId': {
       id: '/_authenticated/admin/pacientes/$patientId'
       path: '/$patientId'
@@ -268,12 +286,15 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAdminPacientesRouteChildren {
   AuthenticatedAdminPacientesPatientIdRoute: typeof AuthenticatedAdminPacientesPatientIdRoute
+  AuthenticatedAdminPacientesIndexRoute: typeof AuthenticatedAdminPacientesIndexRoute
 }
 
 const AuthenticatedAdminPacientesRouteChildren: AuthenticatedAdminPacientesRouteChildren =
   {
     AuthenticatedAdminPacientesPatientIdRoute:
       AuthenticatedAdminPacientesPatientIdRoute,
+    AuthenticatedAdminPacientesIndexRoute:
+      AuthenticatedAdminPacientesIndexRoute,
   }
 
 const AuthenticatedAdminPacientesRouteWithChildren =
