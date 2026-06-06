@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowLeft, AlertTriangle, ShieldAlert, Search, Plus, Trash2, Wand2,
   Lock, Copy, FileDown, Save,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,17 +20,16 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-import { getPatient, type Patient } from "@/lib/clinical/patients";
+import {
+  getPatient, listRecords, upsertRecord, type PatientRow,
+} from "@/lib/clinical/api";
+
+type Patient = PatientRow & { alerts: { kind: "comorbidade" | "alergia"; label: string }[] };
 import {
   FOODS, searchFoods, nutrientsFor, type Food, type FoodUnit,
 } from "@/lib/clinical/foodDb";
 
 export const Route = createFileRoute("/_authenticated/admin/pacientes/$patientId")({
-  loader: ({ params }) => {
-    const patient = getPatient(params.patientId);
-    if (!patient) throw notFound();
-    return { patient };
-  },
   component: ConsultationPage,
   notFoundComponent: () => (
     <div className="p-10">
@@ -38,6 +38,9 @@ export const Route = createFileRoute("/_authenticated/admin/pacientes/$patientId
         <Link to="/admin/pacientes">Voltar para pacientes</Link>
       </Button>
     </div>
+  ),
+  errorComponent: ({ error }) => (
+    <div className="p-10 text-sm text-rose-600">{(error as Error).message}</div>
   ),
 });
 
@@ -69,24 +72,96 @@ const emptyMeals = (): MealMap => Object.fromEntries(
 
 // ---------- main ----------
 function ConsultationPage() {
-  const { patient } = Route.useLoaderData();
+  const { patientId } = Route.useParams();
+  const qc = useQueryClient();
+
+  const { data: patient, isLoading } = useQuery({
+    queryKey: ["patient", patientId],
+    queryFn: () => getPatient(patientId),
+  });
+  const { data: records = [] } = useQuery({
+    queryKey: ["patient-records", patientId],
+    queryFn: () => listRecords(patientId),
+  });
+
+  const recordOf = (kind: string) => records.find((r) => r.kind === kind);
 
   // shared mock state for this consultation (in-memory)
-  const [recall, setRecall] = useState<MealMap>(seedRecall());
+  const [recall, setRecall] = useState<MealMap>(emptyMeals());
   const [recallLocked, setRecallLocked] = useState(false);
   const [plan, setPlan] = useState<MealMap>(emptyMeals());
   const [planDraftFromRecall, setPlanDraftFromRecall] = useState(false);
   const [activeTab, setActiveTab] = useState("anamnese");
 
-  function generatePlanFromRecall() {
-    setPlan(structuredClone(recall));
+  // hydrate local state from DB records
+  useEffect(() => {
+    const r = recordOf("recordatorio");
+    if (r) {
+      const d = r.data as any;
+      if (d?.meals) setRecall(d.meals as MealMap);
+      setRecallLocked(!!r.locked);
+    }
+    const p = recordOf("plano");
+    if (p) {
+      const d = p.data as any;
+      if (d?.meals) setPlan(d.meals as MealMap);
+      if (d?.fromRecall) setPlanDraftFromRecall(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [records.length]);
+
+  const saveRecord = useMutation({
+    mutationFn: (args: { kind: any; data: any; locked?: boolean }) =>
+      upsertRecord({ patient_id: patientId, ...args }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["patient-records", patientId] }),
+    onError: (e: any) => toast.error("Erro ao salvar", { description: e.message }),
+  });
+
+  async function saveRecall() {
+    await saveRecord.mutateAsync({ kind: "recordatorio", data: { meals: recall }, locked: recallLocked });
+    toast.success("Recordatório salvo");
+  }
+  async function savePlan() {
+    await saveRecord.mutateAsync({
+      kind: "plano",
+      data: { meals: plan, fromRecall: planDraftFromRecall },
+    });
+    toast.success("Plano salvo");
+  }
+
+  async function generatePlanFromRecall() {
+    const clone = structuredClone(recall);
+    setPlan(clone);
     setRecallLocked(true);
     setPlanDraftFromRecall(true);
     setActiveTab("plano");
-    toast.success("Plano gerado a partir do recordatório", {
-      description: "O recordatório foi bloqueado como linha de base histórica.",
+    await Promise.all([
+      saveRecord.mutateAsync({ kind: "recordatorio", data: { meals: recall }, locked: true }),
+      saveRecord.mutateAsync({ kind: "plano", data: { meals: clone, fromRecall: true } }),
+    ]);
+    toast.success("Plano gerado e salvo", {
+      description: "Recordatório bloqueado como linha de base.",
     });
   }
+
+  if (isLoading) {
+    return <div className="p-10 text-sm text-muted-foreground">Carregando paciente...</div>;
+  }
+  if (!patient) {
+    return (
+      <div className="p-10">
+        <p className="text-sm text-muted-foreground">Paciente não encontrado.</p>
+        <Button asChild variant="link" className="px-0">
+          <Link to="/admin/pacientes">Voltar para pacientes</Link>
+        </Button>
+      </div>
+    );
+  }
+
+  const patientView: Patient = {
+    ...patient,
+    alerts: Array.isArray(patient.alerts) ? (patient.alerts as any) : [],
+  };
 
   return (
     <div className="p-4 lg:p-8 max-w-7xl mx-auto">
@@ -94,7 +169,7 @@ function ConsultationPage() {
         <Link to="/admin/pacientes"><ArrowLeft className="h-4 w-4" /> Pacientes</Link>
       </Button>
 
-      <PatientHeader patient={patient} />
+      <PatientHeader patient={patientView} />
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-6">
         <div className="overflow-x-auto -mx-1 px-1">
@@ -108,9 +183,25 @@ function ConsultationPage() {
           </TabsList>
         </div>
 
-        <TabsContent value="anamnese" className="mt-6"><AnamneseTab /></TabsContent>
-        <TabsContent value="avaliacao" className="mt-6"><AvaliacaoTab /></TabsContent>
-        <TabsContent value="gasto" className="mt-6"><GastoTab patient={patient} /></TabsContent>
+        <TabsContent value="anamnese" className="mt-6">
+          <AnamneseTab
+            initial={recordOf("anamnese")?.data as any}
+            onSave={(data) => saveRecord.mutateAsync({ kind: "anamnese", data }).then(() => toast.success("Anamnese salva"))}
+          />
+        </TabsContent>
+        <TabsContent value="avaliacao" className="mt-6">
+          <AvaliacaoTab
+            initial={recordOf("avaliacao")?.data as any}
+            onSave={(data) => saveRecord.mutateAsync({ kind: "avaliacao", data }).then(() => toast.success("Avaliação salva"))}
+          />
+        </TabsContent>
+        <TabsContent value="gasto" className="mt-6">
+          <GastoTab
+            patient={patientView}
+            initial={recordOf("gasto")?.data as any}
+            onSave={(data) => saveRecord.mutateAsync({ kind: "gasto", data }).then(() => toast.success("Gasto salvo"))}
+          />
+        </TabsContent>
 
         <TabsContent value="recordatorio" className="mt-6">
           <FoodDiary
@@ -120,10 +211,15 @@ function ConsultationPage() {
             onChange={setRecall}
             locked={recallLocked}
             primaryAction={
-              <Button onClick={generatePlanFromRecall} disabled={recallLocked && planDraftFromRecall}>
-                <Wand2 className="h-4 w-4" />
-                Gerar Plano a partir deste Recordatório
-              </Button>
+              <div className="flex gap-2">
+                <Button variant="outline" onClick={saveRecall} disabled={recallLocked || saveRecord.isPending}>
+                  <Save className="h-4 w-4" /> Salvar
+                </Button>
+                <Button onClick={generatePlanFromRecall} disabled={(recallLocked && planDraftFromRecall) || saveRecord.isPending}>
+                  <Wand2 className="h-4 w-4" />
+                  Gerar Plano
+                </Button>
+              </div>
             }
             secondaryAction={
               recallLocked ? (
@@ -146,7 +242,7 @@ function ConsultationPage() {
             meals={plan}
             onChange={setPlan}
             primaryAction={
-              <Button>
+              <Button onClick={savePlan} disabled={saveRecord.isPending}>
                 <Save className="h-4 w-4" />
                 Salvar plano
               </Button>
@@ -161,7 +257,13 @@ function ConsultationPage() {
           />
         </TabsContent>
 
-        <TabsContent value="prescricao" className="mt-6"><PrescricaoTab patient={patient} /></TabsContent>
+        <TabsContent value="prescricao" className="mt-6">
+          <PrescricaoTab
+            patient={patientView}
+            initial={recordOf("prescricao")?.data as any}
+            onSave={(data) => saveRecord.mutateAsync({ kind: "prescricao", data }).then(() => toast.success("Prescrição salva"))}
+          />
+        </TabsContent>
       </Tabs>
     </div>
   );
