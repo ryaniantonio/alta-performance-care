@@ -1,35 +1,49 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CalendarDays, Users, TrendingUp, Clock } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { CalendarDays, Users, TrendingUp, Clock, Plus } from "lucide-react";
 import { PageHeader } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { listAppointments, listPatients } from "@/lib/clinical/api";
+import { NewAppointmentDialog } from "@/components/admin/NewAppointmentDialog";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
   component: DashboardPage,
 });
 
-const stats = [
-  { label: "Consultas hoje", value: "6", icon: CalendarDays, hint: "+2 vs. ontem" },
-  { label: "Pacientes ativos", value: "84", icon: Users, hint: "+4 este mês" },
-  { label: "Taxa de retorno", value: "92%", icon: TrendingUp, hint: "Últimos 30 dias" },
-  { label: "Próxima consulta", value: "09:30", icon: Clock, hint: "Mariana Costa" },
-];
-
-const today = [
-  { time: "08:30", patient: "Eduardo Martins", type: "Personal Diet", color: "bg-emerald-500" },
-  { time: "09:30", patient: "Mariana Costa", type: "Consulta clínica", color: "bg-sky-500" },
-  { time: "11:00", patient: "Beatriz Almeida", type: "Retorno", color: "bg-amber-500" },
-  { time: "14:00", patient: "Rafael Andrade", type: "Avaliação enteral", color: "bg-rose-500" },
-  { time: "16:30", patient: "Luciana Ferreira", type: "Orientação", color: "bg-violet-500" },
-];
-
 function DashboardPage() {
+  const [open, setOpen] = useState(false);
+  const startOfDay = new Date(); startOfDay.setHours(0, 0, 0, 0);
+  const endOfDay = new Date(startOfDay); endOfDay.setDate(endOfDay.getDate() + 1);
+
+  const { data: appts = [], isLoading } = useQuery({
+    queryKey: ["appointments", "today"],
+    queryFn: () => listAppointments({ from: startOfDay.toISOString(), to: endOfDay.toISOString() }),
+  });
+  const { data: patients = [] } = useQuery({ queryKey: ["patients"], queryFn: listPatients });
+
+  const next = appts.find((a) => new Date(a.scheduled_at) >= new Date());
+  const stats = [
+    { label: "Consultas hoje", value: String(appts.length), icon: CalendarDays, hint: isLoading ? "carregando..." : "Hoje" },
+    { label: "Pacientes ativos", value: String(patients.length), icon: Users, hint: "Cadastrados" },
+    { label: "Taxa de retorno", value: "—", icon: TrendingUp, hint: "Em breve" },
+    {
+      label: "Próxima consulta",
+      value: next ? new Date(next.scheduled_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—",
+      icon: Clock,
+      hint: next ? (next as any).patient?.name ?? "" : "Sem agendamentos",
+    },
+  ];
+
   return (
     <div className="p-6 lg:p-10 max-w-7xl mx-auto">
       <PageHeader
         title="Bom dia, profissional"
         description="Sua agenda e indicadores do dia."
-        actions={<Button>Nova consulta</Button>}
+        actions={<Button onClick={() => setOpen(true)}><Plus className="h-4 w-4" /> Nova consulta</Button>}
       />
+      <NewAppointmentDialog open={open} onOpenChange={setOpen} />
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
         {stats.map((s) => {
@@ -51,22 +65,32 @@ function DashboardPage() {
         <div className="p-5 border-b flex items-center justify-between">
           <div>
             <h2 className="font-semibold">Agenda de hoje</h2>
-            <p className="text-xs text-muted-foreground">5 atendimentos programados</p>
+            <p className="text-xs text-muted-foreground">{appts.length} atendimentos programados</p>
           </div>
-          <Button variant="outline" size="sm">Ver agenda completa</Button>
+          <Button variant="outline" size="sm" onClick={() => setOpen(true)}>Nova consulta</Button>
         </div>
         <ul className="divide-y">
-          {today.map((a) => (
-            <li key={a.time} className="px-5 py-4 flex items-center gap-4 hover:bg-muted/40 transition-colors">
-              <div className="text-sm font-mono w-14 text-muted-foreground">{a.time}</div>
-              <div className={`h-2 w-2 rounded-full ${a.color}`} />
-              <div className="flex-1 min-w-0">
-                <p className="font-medium truncate">{a.patient}</p>
-                <p className="text-xs text-muted-foreground">{a.type}</p>
-              </div>
-              <Button variant="ghost" size="sm">Abrir</Button>
+          {appts.length === 0 && (
+            <li className="px-5 py-10 text-center text-sm text-muted-foreground">
+              Nenhuma consulta hoje. Clique em "Nova consulta" para agendar.
             </li>
-          ))}
+          )}
+          {appts.map((a: any) => {
+            const time = new Date(a.scheduled_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+            return (
+              <li key={a.id} className="px-5 py-4 flex items-center gap-4 hover:bg-muted/40 transition-colors">
+                <div className="text-sm font-mono w-14 text-muted-foreground">{time}</div>
+                <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium truncate">{a.patient?.name ?? "Paciente"}</p>
+                  <p className="text-xs text-muted-foreground">{a.type}</p>
+                </div>
+                <Button asChild variant="ghost" size="sm">
+                  <Link to="/admin/agenda/$appointmentId" params={{ appointmentId: a.id }}>Abrir</Link>
+                </Button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
