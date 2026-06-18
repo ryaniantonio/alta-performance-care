@@ -25,7 +25,7 @@ const faqs: Faq[] = [
   {
     q: "Como funciona a primeira consulta?",
     intro:
-      "Cada formato é desenhado conforme o seu objetivo principal — do cuidado pontual à dietoterapia de alta complexidade.",
+      "Cada formato é desenhado conforme o seu objetivo principal:",
     modalities: [
       {
         name: "Orientação Nutricional",
