@@ -23,7 +23,7 @@ const adulto: Card[] = [
     icon: Ruler,
     title: "Avaliação Antropométrica Avançada",
     description:
-      "Composição corporal detalhada — massa magra, gordura, dobras cutâneas e bioimpedância. Muito além da balança.",
+      "Composição corporal detalhada — massa magra, gordura, massa muscular, dobras cutâneas e bioimpedância. Muito além da balança.",
   },
   {
     icon: Dumbbell,
