@@ -49,7 +49,7 @@ const faqs: Faq[] = [
         name: "Dietoterapia Enteral",
         duration: "4 horas",
         description:
-          "Avaliação especializada para pacientes em terapia nutricional enteral, com ajuste fino de fórmula e via de administração.",
+          "Avaliação especializada para pacientes em terapia nutricional enteral, com avaliação nutricional, avaliação antropométrica, análise de exames e ajustes de volume conforme necessidade.",
       },
       {
         name: "Home Care",
