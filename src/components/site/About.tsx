@@ -41,7 +41,7 @@ export function About() {
               introdução alimentar do filho quanto ao adulto que persegue
               hipertrofia, performance ou recuperação de uma condição clínica.
               Cada plano é construído a partir de exames, antropometria
-              avançada e histórico individualizado — Não utilizo protocolos genéricos.
+              avançada, planejamento alimentar criterioso e histórico individualizado — Não utilizo protocolos genéricos.
             </p>
             <p>
               Acredito que a melhor nutrição é a que une evidência científica,
