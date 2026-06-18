@@ -31,7 +31,7 @@ const faqs: Faq[] = [
         name: "Orientação Nutricional",
         duration: "1 hora",
         description:
-          "Direcionamento prático para quem busca ajustes pontuais e clareza sobre o próximo passo.",
+          "Direcionamento prático para quem busca ajustes pontuais, esclarecimentos de dúvidas, orientação sobre a dieta em uso e clareza sobre o próximo passo.",
       },
       {
         name: "Consulta Clínica Completa",
