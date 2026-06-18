@@ -37,7 +37,7 @@ const faqs: Faq[] = [
         name: "Consulta Clínica Completa",
         duration: "2 horas",
         description:
-          "Anamnese aprofundada, revisão de exames recentes e avaliação antropométrica (dobras, perímetros e bioimpedância quando indicado).",
+          "Anamnese aprofundada, revisão de exames recentes, planejamento alimentar e avaliação antropométrica (dobras, perímetros e bioimpedância quando indicado).",
       },
       {
         name: "Personal Diet",
