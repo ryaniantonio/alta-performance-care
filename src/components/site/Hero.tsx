@@ -83,7 +83,7 @@ export function Hero() {
                 Atendimento Adulto: Clínica e Esporte
               </h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Avaliação antropométrica do adulto e do idoso, composição corporal, performance, hipertrofia, emagrecimento e nutrição clínica baseada em exames.
+                Avaliação antropométrica do adulto e do idoso, avaliação nutricional, composição corporal, performance, hipertrofia, planejamento alimentar, emagrecimento e nutrição clínica baseada em exames.
               </p>
             </div>
           </div>
