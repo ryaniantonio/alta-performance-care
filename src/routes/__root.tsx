@@ -79,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Ryani Antonio — Nutrição Clínica, Esportiva e Pediátrica" },
-      { name: "description", content: "Nutrição de alta complexidade e performance: do ambiente hospitalar ao consultório. Atendimento clínico, esportivo e pediátrico com base em evidências científicas." },
+      { name: "description", content: "Nutrição Clínica e performance!: do ambiente hospitalar ao consultório. Atendimento clínico, esportivo e pediátrico com base em evidências científicas." },
       { name: "author", content: "Ryani Antonio" },
       { property: "og:title", content: "Ryani Antonio — Nutrição Clínica, Esportiva e Pediátrica" },
       { property: "og:description", content: "Ciência de ponta e cuidado humanizado para guiar sua saúde, evolução estética ou a nutrição do seu filho." },
