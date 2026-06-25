@@ -40,8 +40,8 @@ export function About() {
               Hoje, ela serve tanto à mãe que busca segurança na
               introdução alimentar do filho quanto ao adulto que persegue
               hipertrofia, performance ou recuperação de uma condição clínica.
-              Cada plano é construído a partir de exames, antropometria
-              avançada, planejamento alimentar criterioso e histórico individualizado — Não utilizo protocolos genéricos.
+              Cada plano é construído a partir de exames, antropometria, 
+              planejamento alimentar e histórico individualizado — Não utilizo protocolos genéricos.
             </p>
             <p>
               Acredito que a melhor nutrição é a que une evidência científica,
