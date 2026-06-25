@@ -43,7 +43,7 @@ const faqs: Faq[] = [
         name: "Personal Diet",
         duration: "4 horas",
         description:
-          "Atendimento imersivo com planejamento alimentar individualizado e acompanhamento prático no seu ambiente.",
+          "Atendimento imersivo, na casa do cliente, com planejamento alimentar individualizado e acompanhamento prático no seu ambiente.",
       },
       {
         name: "Dietoterapia Enteral",
