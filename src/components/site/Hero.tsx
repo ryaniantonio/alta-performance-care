@@ -19,8 +19,8 @@ export function Hero() {
           </span>
 
           <h1 className="mt-6 font-display text-4xl leading-[1.05] text-foreground sm:text-5xl lg:text-6xl">
-            Nutrição de alta complexidade{" "}
-            <span className="italic text-primary">e performance</span>
+            Nutrição Clínica{" "}
+            <span className="italic text-primary">e performance!</span>
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg whitespace-pre-line">
