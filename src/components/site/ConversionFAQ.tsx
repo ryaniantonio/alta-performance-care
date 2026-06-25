@@ -103,11 +103,11 @@ export function ConversionFAQ() {
               Consulta Presencial
             </WhatsAppButton>
             <WhatsAppButton
-              message="Olá Ryani! Gostaria de agendar uma consultoria online (telemedicina)."
+              message="Olá Ryani! Gostaria de agendar uma consulta online (telemedicina)."
               size="lg"
               variant="outline"
             >
-              Consultoria Online
+              Consulta Online
             </WhatsAppButton>
           </div>
 
