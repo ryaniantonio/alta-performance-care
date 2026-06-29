@@ -2,6 +2,7 @@ import { Star, ExternalLink, QrCode } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { GOOGLE_REVIEW_URL, qrCodeUrl } from "@/lib/site";
 import { toast } from "sonner";
+import qrGoogle from "@/assets/qr-google-review.png.asset.json";
 
 export function GoogleReview() {
   const ref = useReveal<HTMLDivElement>();
@@ -79,7 +80,7 @@ export function GoogleReview() {
               </p>
               <div className="rounded-2xl bg-background p-4 shadow-premium">
                 <img
-                  src={qrCodeUrl(GOOGLE_REVIEW_URL, 220)}
+                  src={qrGoogle.url}
                   alt="QR Code para avaliar no Google"
                   width={220}
                   height={220}
