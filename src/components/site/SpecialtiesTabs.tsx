@@ -91,7 +91,7 @@ export function SpecialtiesTabs() {
             Dois universos, uma só ciência.
           </h2>
           <p className="mt-4 text-base text-muted-foreground">
-            Escolha o eixo de cuidado e veja como a abordagem é construída — sempre baseada em evidências e personalização.
+            Escolha o eixo de cuidado e veja como a abordagem é construída — sempre baseada em evidências e personalizado.
           </p>
         </div>
 
