@@ -102,7 +102,7 @@ function Brand({ collapsed }: { collapsed?: boolean } = {}) {
       <span className="grid place-items-center h-8 w-8 rounded-lg bg-foreground text-background shrink-0">
         <Leaf className="h-4 w-4" />
       </span>
-      {!collapsed && <span>EasyHealth</span>}
+      {!collapsed && <span>Ryani Nutricionista</span>}
     </Link>
   );
 }
