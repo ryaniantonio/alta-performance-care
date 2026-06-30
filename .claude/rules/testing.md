@@ -7,36 +7,29 @@ paths:
 
 # Testing
 
-> **Atenção — tooling ainda NÃO instalado.** Este repositório **não tem** Vitest
-> nem `@testing-library/react` no [`package.json`](../../package.json) (não há
-> script `test`, e o `build` é só `vite build`, que **não** roda `tsc` — não há
-> gate de tipo no build). Portanto **a primeira tarefa de teste DEVE instalar o
-> tooling** antes de escrever qualquer spec. Enquanto isso não acontece, a única
-> rede de segurança é `npm run lint` + revisão manual — escrever testes que não
-> rodam é pior que não escrever.
+> **Tooling instalado.** Vitest + `@testing-library/react` já estão no
+> [`package.json`](../../package.json) (scripts `test` / `test:watch`), com
+> [`vitest.config.ts`](../../vitest.config.ts) na raiz e setup em
+> [`src/test/setup.ts`](../../src/test/setup.ts). Lembre que o `build` é só
+> `vite build` e **não** roda `tsc` — o gate de tipo é `npm run typecheck`;
+> rode-o junto de `npm test`, pois o build não cobre nenhum dos dois.
 
-## Setup inicial (primeira tarefa de teste — fazer uma vez)
+## Setup (instalado — referência)
 
-1. Instalar as dev-deps:
+O tooling de teste já está configurado; abaixo, o que existe no repositório.
 
-   ```bash
-   npm i -D vitest @testing-library/react @testing-library/jest-dom \
-     @testing-library/user-event jsdom @vitejs/plugin-react
-   ```
+1. **Dev-deps** (em [`package.json`](../../package.json)): `vitest`,
+   `@testing-library/react`, `@testing-library/jest-dom`,
+   `@testing-library/user-event`, `@testing-library/dom`, `jsdom`.
+   (`@vitejs/plugin-react` e `vite-tsconfig-paths` já vinham no projeto.)
 
-   (`@vitejs/plugin-react` já está no projeto; reaproveite-o no config.)
+2. **Scripts** em [`package.json`](../../package.json): `test` (`vitest run`) e
+   `test:watch` (`vitest`).
 
-2. Adicionar os scripts em [`package.json`](../../package.json):
-
-   ```jsonc
-   "scripts": {
-     "test": "vitest run",
-     "test:watch": "vitest"
-   }
-   ```
-
-3. Criar `vitest.config.ts` na raiz, reusando o alias `@/*` → `./src/*` via
-   `vite-tsconfig-paths` (já é dependência) e ambiente `jsdom`:
+3. [`vitest.config.ts`](../../vitest.config.ts) na raiz — **separado** do
+   `vite.config.ts` para não carregar os plugins do TanStack Start / Nitro nos
+   testes. Reusa o alias `@/*` → `./src/*` via `vite-tsconfig-paths` e roda no
+   ambiente `jsdom`:
 
    ```ts
    import { defineConfig } from "vitest/config";
@@ -46,16 +39,21 @@ paths:
    export default defineConfig({
      plugins: [tsconfigPaths(), react()],
      test: {
-       environment: "jsdom",
        globals: true,
+       environment: "jsdom",
        setupFiles: ["./src/test/setup.ts"],
+       css: false,
      },
    });
    ```
 
-4. Criar `src/test/setup.ts` com `import "@testing-library/jest-dom";`.
+4. [`src/test/setup.ts`](../../src/test/setup.ts) com
+   `import "@testing-library/jest-dom/vitest";` (registra os matchers de jest-dom
+   no `expect` do Vitest).
 
-A partir daí, todo PR que toca lógica passa a poder (e dever) acompanhar teste.
+Primeiro spec já versionado:
+[`src/lib/pluralize.test.ts`](../../src/lib/pluralize.test.ts). A partir daqui,
+todo PR que toca lógica passa a poder (e dever) acompanhar teste.
 
 ## Onde colocar os testes
 
