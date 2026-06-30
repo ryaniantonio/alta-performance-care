@@ -32,15 +32,17 @@ de algo já explicitamente acordado na conversa em andamento.
 - Toda refatoração/desenvolvimento acontece na branch **`preview`**, **nunca** direto
   na `main`.
 - Depois do **smoke test aprovado** na `preview`, integrar na `main` com
-  **fast-forward apenas** e só então fazer o push da `main`:
+  **fast-forward apenas**, rodar o **build** e só então fazer o push da `main`:
   ```bash
   git checkout main
   git merge --ff-only preview
+  npm run build          # gate obrigatório: só fazer push se o build passar
   git push origin main
   ```
-- O **push da `main` só ocorre após o merge-ff**. Se o `--ff-only` falhar (histórico
-  divergiu), rebasear a `preview` sobre a `main` antes de integrar — nunca forçar um
-  merge commit na `main`.
+- O **push da `main` só ocorre após o merge-ff E com o build verde**. Se o build
+  falhar, corrigir antes de qualquer push — a `main` deve estar sempre publicável. Se
+  o `--ff-only` falhar (histórico divergiu), rebasear a `preview` sobre a `main` antes
+  de integrar — nunca forçar um merge commit na `main`.
 
 ### 3. Commits profissionais, detalhados e completos
 - Formato **Conventional Commits**: `tipo(escopo): resumo` (`feat`, `fix`, `docs`,
