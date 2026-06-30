@@ -5,8 +5,10 @@ import { useReveal } from "@/hooks/use-reveal";
 
 export function BlogPreview() {
   const ref = useReveal<HTMLDivElement>();
+  // Sem padding-top: Testimonials (mesmo fundo, logo acima) já fornece o
+  // espaçamento; py-20/py-28 nas duas dobrava o vão, virando um buraco.
   return (
-    <section id="blog" className="scroll-mt-24 py-20 sm:py-28">
+    <section id="blog" className="scroll-mt-24 pb-20 sm:pb-28">
       <div ref={ref} className="reveal mx-auto max-w-6xl px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-xl">
