@@ -1,4 +1,4 @@
-import aboutImg from "@/assets/ryani-about.jpg.asset.json";
+import aboutImg from "@/assets/about-portrait.jpg";
 import { useReveal } from "@/hooks/use-reveal";
 import { SITE } from "@/lib/site";
 
@@ -14,7 +14,7 @@ export function About() {
           <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/15 to-accent/20 blur-2xl" />
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-premium ring-1 ring-foreground/5">
             <img
-              src={aboutImg.url}
+              src={aboutImg}
               alt="Ryani Antonio em ambiente de consultório"
               className="size-full object-cover"
               loading="lazy"

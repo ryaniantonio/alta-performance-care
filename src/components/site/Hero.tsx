@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Baby, Activity } from "lucide-react";
-import heroPortrait from "@/assets/ryani-hero.jpg.asset.json";
+import heroPortrait from "@/assets/hero-portrait.jpg";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { SITE } from "@/lib/site";
 
@@ -51,7 +51,7 @@ export function Hero() {
           <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-primary/20 via-transparent to-accent/30 blur-2xl" />
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-premium ring-1 ring-foreground/5">
             <img
-              src={heroPortrait.url}
+              src={heroPortrait}
               alt={`Retrato profissional da nutricionista ${SITE.name}`}
               className="size-full object-cover"
               width={896}
