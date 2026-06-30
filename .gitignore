@@ -30,3 +30,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Claude Code — per-machine, NOT shared (the team baseline .claude/settings.json
+# and .claude/rules/ ARE committed; only local state below is ignored)
+.claude/settings.local.json
+.claude/plans/
+.claude/worktrees/
+.claude/scheduled_tasks.lock
+.claude/*.local
