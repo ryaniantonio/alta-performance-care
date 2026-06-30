@@ -24,7 +24,9 @@ import {
   getPatient, listRecords, upsertRecord, type PatientRow,
 } from "@/lib/clinical/api";
 
-type Patient = PatientRow & { alerts: { kind: "comorbidade" | "alergia"; label: string }[] };
+type Patient = Omit<PatientRow, "alerts"> & {
+  alerts: { kind: "comorbidade" | "alergia"; label: string }[];
+};
 import {
   FOODS, searchFoods, nutrientsFor, type Food, type FoodUnit,
 } from "@/lib/clinical/foodDb";
@@ -160,7 +162,7 @@ function ConsultationPage() {
 
   const patientView: Patient = {
     ...patient,
-    alerts: Array.isArray(patient.alerts) ? (patient.alerts as any) : [],
+    alerts: Array.isArray(patient.alerts) ? (patient.alerts as unknown as Patient["alerts"]) : [],
   };
 
   return (
