@@ -27,8 +27,14 @@ export function WhatsAppButton({
       "bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-premium",
     outline:
       "border border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10",
+    // Filled teal button: it inherits bg-primary from the Button `default`
+    // variant (no variant is passed to <Button>). Keep that fill and use the
+    // light primary-foreground token so the label stays legible on the dark teal.
+    // On hover, keep the fill (slightly lighter) and lift with shadow-premium —
+    // the original hover:bg-foreground/5 turned the fill near-transparent, making
+    // the button vanish into the light testimonial card.
     "ghost-light":
-      "border border-foreground/15 text-foreground hover:bg-foreground/5",
+      "border border-foreground/15 text-primary-foreground hover:bg-primary/90 hover:shadow-premium",
   } as const;
 
   return (
