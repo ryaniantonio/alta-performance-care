@@ -16,11 +16,6 @@ dist-ssr
 .nitro
 *.local
 
-# Env: `.env` (publico) e `.env.example` sao versionados; segredos ficam em
-# `.env.local` (ja coberto por *.local). Ignora qualquer outro `.env.*` por seguranca.
-.env.*
-!.env.example
-
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
@@ -43,3 +38,12 @@ dist-ssr
 .claude/worktrees/
 .claude/scheduled_tasks.lock
 .claude/*.local
+# Vercel CLI (link local)
+.vercel
+
+# Env: `.env` (publico) e `.env.example` sao versionados; `.env.local` e os demais
+# `.env.*` (segredos) ficam FORA do Git. `.env.local` e a FONTE local dos segredos
+# (nao rodar `vercel pull`, que o sobrescreve). Ver docs/environment-variables.md.
+.env*
+!.env
+!.env.example

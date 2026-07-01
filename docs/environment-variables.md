@@ -82,6 +82,12 @@ valores. Ele NAO busca chaves: o `SUPABASE_SERVICE_ROLE_KEY` de um Supabase
 gerenciado pelo Lovable e obtido manualmente 1x (painel do Lovable) e colado no
 `.env.local` antes de rodar o script.
 
+**Modelo adotado: `.env.local` e a FONTE local dos segredos** (o script os empurra
+para o Vercel). **NAO rode `vercel pull`** (nem aceite o prompt de pull no
+`vercel link`): o `pull` SOBRESCREVE o `.env.local` com o que esta no Vercel
+(sentido oposto ao do script) e apaga os segredos locais. O dev local nao precisa
+de `pull`: as variaveis publicas ja vem do `.env` versionado.
+
 ## Checkpoint pendente (para a issue de envio de e-mail)
 
 Confirmar que o runtime de dev (Vite + Nitro/TanStack Start) carrega o `.env.local`

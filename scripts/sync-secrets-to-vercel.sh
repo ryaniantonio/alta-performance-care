@@ -31,10 +31,12 @@ SECRET_KEYS=(EMAIL_HOST EMAIL_PORT SERVER_SECURE EMAIL_USER EMAIL_PASS EMAIL_FRO
 if command -v vercel >/dev/null 2>&1; then VERCEL=(vercel); else VERCEL=(npx --yes vercel); fi
 
 [ -f "$ENV_FILE" ] || { echo "ERRO: $ENV_FILE nao encontrado. Crie o .env.local com os segredos." >&2; exit 1; }
-[ -f "$ROOT/.vercel/project.json" ] || {
+# O `vercel link` cria .vercel/project.json (link classico) OU .vercel/repo.json
+# (link em nivel de repo / git). Aceita qualquer um dos dois.
+if [ ! -f "$ROOT/.vercel/project.json" ] && [ ! -f "$ROOT/.vercel/repo.json" ]; then
   echo "ERRO: projeto nao linkado ao Vercel. Rode antes:  vercel login  &&  vercel link" >&2
   exit 1
-}
+fi
 
 # Extrai o valor de uma chave do .env.local (ultima ocorrencia, sem aspas externas).
 get_val() {

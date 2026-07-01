@@ -35,7 +35,10 @@ if ($null -eq $vercelCmd) { Write-Error "Vercel CLI nao encontrado. Instale com:
 if (-not (Test-Path $envFile)) {
   Write-Error "$envFile nao encontrado. Crie o .env.local com os segredos."; exit 1
 }
-if (-not (Test-Path (Join-Path $root '.vercel/project.json'))) {
+# O `vercel link` cria .vercel/project.json (link classico) OU .vercel/repo.json
+# (link em nivel de repo / git). Aceita qualquer um dos dois.
+if (-not (Test-Path (Join-Path $root '.vercel/project.json')) -and
+    -not (Test-Path (Join-Path $root '.vercel/repo.json'))) {
   Write-Error "Projeto nao linkado ao Vercel. Rode antes:  vercel login ; vercel link"; exit 1
 }
 
