@@ -16,6 +16,11 @@ dist-ssr
 .nitro
 *.local
 
+# Env: `.env` (publico) e `.env.example` sao versionados; segredos ficam em
+# `.env.local` (ja coberto por *.local). Ignora qualquer outro `.env.*` por seguranca.
+.env.*
+!.env.example
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
