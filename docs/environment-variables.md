@@ -61,9 +61,26 @@ publicas, que ja vem do `.env` versionado.
 
 ## Sincronizacao VSCode <-> Vercel
 
-`.env.local` (dev) e as Env Vars do Vercel (prod) sao mantidos manualmente em
-paridade. Ao adicionar/alterar um segredo, atualizar os DOIS lugares e refletir o
-nome (sem valor) no `.env.example`.
+`.env.local` (dev) e as Env Vars do Vercel (prod) sao mantidos em paridade. Ao
+adicionar/alterar um segredo: atualizar o `.env.local`, refletir o nome (sem
+valor) no `.env.example` e propagar para o Vercel.
+
+Para propagar os segredos do `.env.local` para o Vercel sem copiar var por var no
+painel, use o script `scripts/sync-secrets-to-vercel.*`:
+
+    # pre-requisito (uma vez):
+    vercel login
+    vercel link
+
+    # sempre que os segredos mudarem:
+    bash scripts/sync-secrets-to-vercel.sh                                       # Git Bash / Linux / macOS
+    powershell -ExecutionPolicy Bypass -File scripts/sync-secrets-to-vercel.ps1  # Windows
+
+O script le apenas os segredos allowlisted (EMAIL_*, SUPABASE_SERVICE_ROLE_KEY),
+cadastra-os em `production` e `preview` de forma idempotente e nunca imprime os
+valores. Ele NAO busca chaves: o `SUPABASE_SERVICE_ROLE_KEY` de um Supabase
+gerenciado pelo Lovable e obtido manualmente 1x (painel do Lovable) e colado no
+`.env.local` antes de rodar o script.
 
 ## Checkpoint pendente (para a issue de envio de e-mail)
 
