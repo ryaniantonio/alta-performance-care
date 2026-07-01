@@ -103,6 +103,7 @@ export type Database = {
         Row: {
           age: number | null
           alerts: Json
+          auth_user_id: string | null
           created_at: string
           email: string | null
           goal: string | null
@@ -118,6 +119,7 @@ export type Database = {
         Insert: {
           age?: number | null
           alerts?: Json
+          auth_user_id?: string | null
           created_at?: string
           email?: string | null
           goal?: string | null
@@ -133,6 +135,7 @@ export type Database = {
         Update: {
           age?: number | null
           alerts?: Json
+          auth_user_id?: string | null
           created_at?: string
           email?: string | null
           goal?: string | null
@@ -147,12 +150,54 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          clinic_address: string | null
+          clinic_email: string | null
+          clinic_name: string | null
+          clinic_phone: string | null
+          created_at: string
+          crn: string | null
+          full_name: string | null
+          id: string
+          logo_url: string | null
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          clinic_address?: string | null
+          clinic_email?: string | null
+          clinic_name?: string | null
+          clinic_phone?: string | null
+          created_at?: string
+          crn?: string | null
+          full_name?: string | null
+          id: string
+          logo_url?: string | null
+          role?: string
+          updated_at?: string
+        }
+        Update: {
+          clinic_address?: string | null
+          clinic_email?: string | null
+          clinic_name?: string | null
+          clinic_phone?: string | null
+          created_at?: string
+          crn?: string | null
+          full_name?: string | null
+          id?: string
+          logo_url?: string | null
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      link_patient_account: { Args: never; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
