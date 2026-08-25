@@ -111,7 +111,7 @@ export function SpecialtiesTabs() {
               value="pediatria"
               className="rounded-full py-2.5 text-sm font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
             >
-              Pediatria
+              Pediatria - Nutrição Clínica
             </TabsTrigger>
           </TabsList>
 
