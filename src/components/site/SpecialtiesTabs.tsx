@@ -105,7 +105,7 @@ export function SpecialtiesTabs() {
               value="adulto"
               className="rounded-full py-2.5 text-sm font-medium data-[state=active]:bg-accent data-[state=active]:text-accent-foreground data-[state=active]:shadow-sm"
             >
-              Adulto · Clínica & Esporte
+              Adulto · Nutrição Clínica  
             </TabsTrigger>
             <TabsTrigger
               value="pediatria"
