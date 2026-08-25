@@ -5,7 +5,7 @@ const items = [
   { icon: HeartPulse, label: "Residência em Urgência e Emergência Hospitalar Pediátrica - Hospital Infantil João Paulo II em Belo Horizonte - MG" },
   { icon: Stethoscope, label: "Pós-Graduação em Nutrição Clínica do Adulto" },
   { icon: Dumbbell, label: "Pós-Graduação em Nutrição Esportiva" },
-  { icon: Ruler, label: "Especialista em Avaliação Antropométrica Avançada" },
+  { icon: Ruler, label: "Especialista em Nutrição Clínica de Alta Complexidade " },
 ];
 
 export function AuthorityBar() {
