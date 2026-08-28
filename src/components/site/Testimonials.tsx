@@ -16,7 +16,7 @@ const testimonials: Testimonial[] = [
     name: "Mariana Costa",
     role: "Mãe do Theo, 9 meses · Introdução alimentar",
     rating: 5,
-    initials: "MC",
+    initials: "RA",
     text:
       "Maravilhosa! Super atenciosa e comprometida em me ajudar em alcançar meu objetivo.",
   },
