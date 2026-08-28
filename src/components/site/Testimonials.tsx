@@ -21,10 +21,10 @@ const testimonials: Testimonial[] = [
       "Maravilhosa! Super atenciosa e comprometida em me ajudar em alcançar meu objetivo.",
   },
   {
-    name: "Rafael Andrade",
-    role: "Atleta amador · Hipertrofia e performance",
+    name: "N. Lafaiete",
+    role: "Nutrição Clínica",
     rating: 5,
-    initials: "RA",
+    initials: "NL",
     text:
       "Controle do diabetes.",
   },
