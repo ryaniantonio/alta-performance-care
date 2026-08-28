@@ -33,14 +33,13 @@ const testimonials: Testimonial[] = [
     role: "Performance  · Acompanhamento Nutricional",
     rating: 5,
     initials: "IN",
-    text:
-      "Excelente profissional! Muito atenciosa, competente e cuidadosa em cada detalhe. O atendimento é individualizado, com orientações claras e adequadas à nossa realidade, sem aquelas dietas impossíveis de seguir. Me senti muito bem acolhida e segura durante todo o acompanhamento. Recomendo de olhos fechados! ❤️",
+    text: "Excelente profissional! ",
   },
   {
-    name: "Eduardo Martins",
-    role: "Executivo · Saúde metabólica",
+    name: "Eduardo N.",
+    role: "Comerciante · Saúde metabólica",
     rating: 5,
-    initials: "EM",
+    initials: "EN",
     text:
       "Glicemia e triglicerídeos normalizados em três meses, sem dietas restritivas e dentro da minha rotina de viagens. A Ryani entende que evidência científica e vida real precisam caber no mesmo plano.",
   },
