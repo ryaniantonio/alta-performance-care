@@ -25,7 +25,7 @@ export function About() {
         </div>
 
         <div className="order-1 lg:order-2">
-          <p className="text-xs uppercase tracking-[0.22em] text-accent">Sobre Ryani Antonio</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-accent">ESPECIALISTA EM TERAPIA INTENSIVA</p>
           <h2 className="mt-3 font-display text-3xl text-foreground sm:text-4xl lg:text-5xl">
             Da complexidade hospitalar ao consultório
           </h2>
