@@ -22,7 +22,7 @@ const testimonials: Testimonial[] = [
   },
   {
     name: "N. Lafaiete",
-    role: "Nutrição Clínica",
+    role: "Aposentada - Acompanhamento Nutricional",
     rating: 5,
     initials: "NL",
     text:
