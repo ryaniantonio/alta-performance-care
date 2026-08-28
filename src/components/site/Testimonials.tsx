@@ -18,7 +18,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     initials: "MC",
     text:
-      "A Ryani trouxe segurança numa fase em que eu estava cheia de dúvidas. O plano de introdução alimentar foi claro, baseado em evidências e respeitou o ritmo do meu filho. Hoje ele come de tudo com prazer.",
+      "Maravilhosa! Super atenciosa e comprometida em me ajudar em alcançar meu objetivo.",
   },
   {
     name: "Rafael Andrade",
