@@ -26,7 +26,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     initials: "RA",
     text:
-      "Em quatro meses ganhei 3,2 kg de massa magra e reduzi 4% de gordura. O diferencial foi a antropometria avançada e os ajustes finos a cada retorno. Resultado real, sem dieta milagrosa.",
+      "Controle do diabetes.",
   },
   {
     name: "Luciana Ferreira",
