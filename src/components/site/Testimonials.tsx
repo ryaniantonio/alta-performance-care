@@ -13,7 +13,7 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
   {
-    name: "Mariana Costa",
+    name: "Rosy A.",
     role: "Mãe do Theo, 9 meses · Introdução alimentar",
     rating: 5,
     initials: "RA",
