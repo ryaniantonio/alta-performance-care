@@ -42,7 +42,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     initials: "EN",
     text:
-      "Glicemia e triglicerídeos normalizados em três meses, sem dietas restritivas e dentro da minha rotina. A Ryani entende que evidência científica e vida real precisam caber no mesmo plano.",
+      "Glicemia e triglicerídeos normalizados em três meses, sem dietas restritivas e dentro da minha rotina.",
   },
   {
     name: "Beatriz Almeida",
