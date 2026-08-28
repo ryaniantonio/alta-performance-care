@@ -38,11 +38,11 @@ const testimonials: Testimonial[] = [
   },
   {
     name: "Eduardo N.",
-    role: "Comerciante · Saúde metabólica",
+    role: "Comerciante · Acompanhamento Nutricional",
     rating: 5,
     initials: "EN",
     text:
-      "Glicemia e triglicerídeos normalizados em três meses, sem dietas restritivas e dentro da minha rotina de viagens. A Ryani entende que evidência científica e vida real precisam caber no mesmo plano.",
+      "Glicemia e triglicerídeos normalizados em três meses, sem dietas restritivas e dentro da minha rotina. A Ryani entende que evidência científica e vida real precisam caber no mesmo plano.",
   },
   {
     name: "Beatriz Almeida",
