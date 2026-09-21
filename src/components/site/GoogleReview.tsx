@@ -27,7 +27,7 @@ export function GoogleReview() {
               </h2>
               <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
                 Foi atendida(o) por mim? Deixe uma avaliação no Google em menos
-                de 1 minuto. Cada estrela ajuda outras famílias e atletas a
+                 de 1 minuto. Cada estrela ajuda outras famílias e pessoas a
                 encontrarem um cuidado nutricional baseado em evidências.
               </p>
 
