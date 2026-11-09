@@ -55,7 +55,7 @@ export function About() {
               <p className="text-xs uppercase tracking-wide text-muted-foreground">Residência</p>
             </div>
             <div>
-              <p className="font-display text-2xl text-primary">3</p>
+              <p className="font-display text-2xl text-primary">2</p>
               <p className="text-xs uppercase tracking-wide text-muted-foreground">Pós-graduações</p>
             </div>
             <div>
