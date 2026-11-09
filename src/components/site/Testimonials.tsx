@@ -37,14 +37,6 @@ const testimonials: Testimonial[] = [
       "Excelente profissional! Muito atenciosa, competente e cuidadosa em cada detalhe. O atendimento é individualizado, com orientações claras e adequadas à nossa realidade, sem aquelas dietas impossíveis de seguir. Me senti muito bem acolhida e segura durante todo o acompanhamento. Recomendo de olhos fechados! ❤️  ",
   },
   {
-    name: "Eduardo N.",
-    role: "Comerciante · Acompanhamento Nutricional",
-    rating: 5,
-    initials: "EN",
-    text:
-      "Glicemia e triglicerídeos normalizados em três meses, sem dietas restritivas e dentro da minha rotina.",
-  },
-  {
     name: "Beatriz Almeida",
     role: "Corredora de rua · Nutrição esportiva",
     rating: 5,
