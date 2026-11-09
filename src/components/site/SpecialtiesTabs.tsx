@@ -21,7 +21,7 @@ type Card = {
 const adulto: Card[] = [
   {
     icon: Ruler,
-    title: "Avaliação Antropométrica Avançada",
+    title: "Avaliação Antropométrica",
     description:
       "Composição corporal detalhada — massa magra, gordura, massa muscular, dobras cutâneas e bioimpedância. Muito além da balança.",
   },
